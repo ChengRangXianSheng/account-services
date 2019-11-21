@@ -34,7 +34,7 @@ class AccountStoreResult {
 
     @JsonSerialize(using = DecimalJsonType.CoinSerializer::class)
     @JsonDeserialize(using = DecimalJsonType.CoinDeserializer::class)
-    var portionFee:String?=null
+    var portionFee:Number?=null
 
     var contactName:String?=null
 

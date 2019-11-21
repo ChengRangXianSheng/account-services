@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
  *@Date  2019/11/20 10:06
  */
 @RestController
-@RequestMapping("/store-categories")
+@RequestMapping("/categories")
 class CategoryController {
 
     @Autowired

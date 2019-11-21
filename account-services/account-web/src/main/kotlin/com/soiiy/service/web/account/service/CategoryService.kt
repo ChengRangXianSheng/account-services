@@ -5,6 +5,7 @@ import com.soiiy.service.share.account.result.StoreCategoryResult
 import com.soiiy.service.web.account.entity.CategoryEntity
 import com.soiiy.service.web.account.mapper.CategoryMapper
 import com.soiiy.service.web.account.vo.CategoryVO
+import net.sf.jsqlparser.statement.select.First
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -24,7 +25,7 @@ class CategoryService {
      * @Author: ChenRang
      * @Date: 2019/11/20 10:11
      */
-    fun query():StoreCategoryQuery=query()
+    fun query():StoreCategoryQuery=StoreCategoryQuery()
 
     /**
      * 默认展示店铺分类信息
@@ -32,6 +33,7 @@ class CategoryService {
      * @Date: 2019/11/20 10:13
      */
     fun index():List<StoreCategoryResult>{
+
         var selectList = mapper.selectList(null)
         return selectList.map { result(it) }
     }

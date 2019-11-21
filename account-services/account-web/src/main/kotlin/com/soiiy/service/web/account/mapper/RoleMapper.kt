@@ -16,7 +16,7 @@ interface RoleMapper:BaseMapper<RoleEntity>{
     @Select("SELECT * FROM account_roles WHERE type=#{type}")
     fun findAllByType(type:Int):List<RoleEntity>
 
-    @Select("SELECT * FROM account_roles WHERE grant=#{grant}")
+    @Select("SELECT * FROM account_roles WHERE `grant`=#{grant} ;")
     fun findAllByGrant(grant:Int):List<RoleEntity>
 
     @Select("SELECT * FROM account_roles WHERE id=#{id}")

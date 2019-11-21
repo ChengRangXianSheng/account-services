@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper
 import com.soiiy.service.share.account.result.AccountGrantResult
 import com.soiiy.service.web.account.entity.GrantEntity
 import com.soiiy.service.web.account.entity.UserEntity
-import org.apache.ibatis.annotations.Delete
-import org.apache.ibatis.annotations.Insert
-import org.apache.ibatis.annotations.Param
-import org.apache.ibatis.annotations.Select
+import org.apache.ibatis.annotations.*
 import sun.security.provider.PolicyParser
 
 /**
@@ -16,6 +13,7 @@ import sun.security.provider.PolicyParser
  *@Author ChenRang
  *@Date  2019/11/17 15:43
  */
+@Mapper
 interface UserMapper:BaseMapper<UserEntity>{
 
     /**
@@ -51,6 +49,6 @@ interface UserMapper:BaseMapper<UserEntity>{
      * @Author: ChenRang
      * @Date: 2019/11/18 17:33
      */
-    @Delete("DELETE FROM account_grants WHERE grant=#{grant} AND user_id=#{userId} AND type=#{type}")
+    @Delete("DELETE FROM account_grants WHERE `grant`=#{grant} AND user_id=#{userId} AND type=#{type}")
     fun revoke(type:Int,grant:String,userId:String)
 }

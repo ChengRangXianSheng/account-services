@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.soiiy.service.share.account.constant.AccountGrantType
 import com.soiiy.service.share.account.query.AccountGrantQuery
 import com.soiiy.service.share.account.result.AccountGrantResult
+import com.soiiy.service.share.account.result.AccountStoreResult
 import com.soiiy.service.share.account.result.AccountTreeResult
 import com.soiiy.service.web.account.entity.GrantEntity
+import com.soiiy.service.web.account.entity.StoreEntity
 import com.soiiy.service.web.account.mapper.MarketMapper
 import com.soiiy.service.web.account.mapper.RoleMapper
 import com.soiiy.service.web.account.mapper.StoreMapper
@@ -47,9 +49,63 @@ class GrantService {
      * @Date: 2019/11/20 18:42
      */
     fun tree(markets:String?,stores:String?):List<AccountTreeResult>{
-        if(stores != null){
-            var storeResults=storeMapper.selectList()
+
+        if (stores != null) {
+            val storeResults = storeMapper.selectList(queryTree(stores))
+            val storeGroups = storeResults.groupBy { it.marketId }
+                    .map { Pair(it.key, mapStoreTree(it.value)) }.toMap()
+            val marketIds = storeGroups.keys.toList().filterNotNull()
+            val marketResults = marketMapper.selectList(queryTree(marketIds))
+            val results = marketResults.map { market ->
+                val marketResult = AccountTreeResult()
+                marketResult.id = market.id
+                marketResult.name = market.name
+                marketResult.children = storeGroups[market.id]
+                return@map marketResult
+            }
+            return resultTree(results)
         }
+
+        val marketResults=if(markets===null){
+            marketMapper.selectList(null)
+        }else{
+            marketMapper.selectList(queryTree(markets))
+        }
+
+        val results=marketResults.map { market ->
+            val markerResult=AccountTreeResult()
+            markerResult.id=market.id
+            markerResult.name=market.name
+            val storeResults=storeMapper.selectByMarketId(market.id)
+            markerResult.children=mapStoreTree(storeResults)
+            return@map markerResult
+        }
+
+        return resultTree(results)
+    }
+    private fun resultTree(results:List<AccountTreeResult>):List<AccountTreeResult>{
+        val newResults = results.toMutableList()
+        val emptyMarketResult=AccountTreeResult()
+        val emptyStoreResult=AccountTreeResult()
+
+        emptyMarketResult.name="全部网点"
+        emptyStoreResult.name="全部门店"
+        emptyMarketResult.children= listOf()
+        newResults.add(0,emptyMarketResult)
+
+        return newResults.map {
+            val marketChildren=it.children.orEmpty().toMutableList()
+            marketChildren.add(0,emptyStoreResult)
+            it.children=marketChildren
+            return@map it
+        }
+    }
+
+    private fun mapStoreTree(stores: List<StoreEntity>) = stores.map { store ->
+        val storeResult=AccountTreeResult()
+        storeResult.id=store.id
+        storeResult.name=store.name
+        return@map storeResult
     }
 
     private fun <T> queryTree(idStr:String):QueryWrapper<T>{
@@ -59,7 +115,7 @@ class GrantService {
 
     private fun <T> queryTree(ids:List<Long>):QueryWrapper<T>{
         val query=QueryWrapper<T>()
-        query.eq("limit_status",0).`in`("id",if(ids.isEmpty()) listOf() else ids)
+        query.eq("limit_status",0).`in`("id",if(ids.isEmpty()) listOf(0) else ids)
         return query
     }
     /** 
@@ -103,11 +159,13 @@ class GrantService {
         result.label=entity.label
         result.type=entity.type
         result.name=resultGrantName(entity.type,entity.grant)
+
         val role=roleMapper.findById(entity.roleId)
         if(role !== null){
             result.roleName=role.name
             result.roleLabel=role.label
         }
+
         return  result
     }
     private fun resultGrantName(type: AccountGrantType,id:String):String{

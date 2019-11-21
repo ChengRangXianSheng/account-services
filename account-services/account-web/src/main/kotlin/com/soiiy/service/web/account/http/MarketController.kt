@@ -53,7 +53,8 @@ class MarketController {
      * @Date: 2019/11/17 19:51
      */
     @PostMapping
-    fun store(@RequestBody vo:MarketVO):AccountMarketResult=service.store(vo)
+    fun store(@RequestBody vo:MarketVO):AccountMarketResult = service.store(vo)
+
 
     /**
      * 编辑时展示信息
@@ -69,7 +70,7 @@ class MarketController {
      * @Date: 2019/11/17 19:48
      */
     @PutMapping("/{id}")
-    fun update(id:Long,@RequestBody vo:MarketVO):AccountMarketResult=service.update(id,vo)
+    fun update(@PathVariable("id")id:Long,@RequestBody vo:MarketVO):AccountMarketResult=service.update(id,vo)
     /**
      * 删除信息
      * @Author: ChenRang

@@ -82,7 +82,7 @@ class StoreService {
      * @Author: ChenRang
      * @Date: 2019/11/17 19:17
      */
-    fun grant(grants:String,page:Long,size:Long):ResponsePageResult<AccountStoreResult>{
+    fun grant(grants:String, page:Long, size:Long):ResponsePageResult<AccountStoreResult>{
         val queryPage=Page<StoreEntity>(page,size)
         var queryWrapper=QueryWrapper<StoreEntity>()
 
@@ -160,7 +160,7 @@ class StoreService {
             userEntity.name=entity.contactName.orEmpty()
             userEntity.avatarUrl=entity.picUrl
             userEntity.mobile=entity.contactMobile
-            userEntity.usernmae=entity.contactMobile!!
+            userEntity.username=entity.contactMobile!!
             userEntity.type=AccountUserType.NORMAL
             userMapper.insert(userEntity)
             vo.userId=userEntity.id
@@ -182,7 +182,7 @@ class StoreService {
     fun result(entity:StoreEntity):AccountStoreResult{
         var result=entity.result()
 
-        var market=marketMapper.selectById(entity.markerId)
+        var market=marketMapper.selectById(entity.marketId)
         var category=categoryMapper.selectById(entity.categoryId)
 
         result.marketName = if (market === null) null else market.name

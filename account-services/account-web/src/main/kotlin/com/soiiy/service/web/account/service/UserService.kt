@@ -45,18 +45,17 @@ class UserService{
      * @Author: ChenRang
      * @Date: 2019/11/17 20:24
      */
-    fun index(keywords:String?,limitStatus: AccountLimitStatus?,roleId:AccountUserType?,sex:AccountUserSex?,page:Long,size:Long):ResponsePageResult<AccountUserResult>{
-        var queryPage= Page<UserEntity>(page,size)
-        var queryWrapper=QueryWrapper<UserEntity>()
-        var queryMapper= mapOf("limitStatus" to limitStatus,"roleId" to roleId,"sex" to AccountUserSex)
+    fun index(keywords:String?,limitStatus: AccountLimitStatus?,type:AccountUserType,roleId:Int?,page:Long,size:Long):ResponsePageResult<AccountUserResult>{
+        val queryPage=Page<UserEntity>(page,size)
+        val queryWrapper = QueryWrapper<UserEntity>()
 
-        queryWrapper.allEq(queryMapper,false).and { it.eq("1",1).like(keywords.isNullOrEmpty(),"name",keywords).or().
-                like(keywords.isNullOrEmpty(),"mobile",keywords) }
+        queryWrapper.allEq(mapOf("type" to type.code, "role_id" to roleId, "limit_status" to limitStatus), false)
+                .and { it.eq("1", 1).like(!keywords.isNullOrEmpty(), "name", keywords)
+                        .or().like(!keywords.isNullOrEmpty(), "mobile", keywords) }
 
-        var result = mapper.selectPage(queryPage, queryWrapper)
-        var datas=result.records.map { result(it) }
+        var result=mapper.selectPage(queryPage,queryWrapper)
 
-        return ResponseResult.page(datas,result.total)
+        return ResponseResult.page(result.records.map { result(it) },result.total)
     }
     /**
      * 给用户授权
@@ -155,7 +154,7 @@ class UserService{
     }
     fun result(entity: UserEntity):AccountUserResult{
         var result=entity.result()
-        var role=roleMapper.selectById(entity.roleId)
+        var role=roleMapper.findById(entity.roleId)
         if(role!==null){
             result.roleName=role.name
             result.roleLabel=role.label

@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 /**
- *用户控制层
- *@Author ChenRang
- *@Date  2019/11/18 14:53
+ * 用户控制层
+ * @Author ChenRang
+ * @Date  2019/11/18 14:53
  */
 @RestController
-@RequestMapping("/account-users")
+@RequestMapping("/users")
 class UserController {
 
     @Autowired
@@ -28,7 +28,7 @@ class UserController {
      * @Author: ChenRang
      * @Date: 2019/11/18 14:55
      */
-    @GetMapping
+    @GetMapping("/query")
     fun query(type:AccountUserType):AccountUserQuery=service.query(type)
 
     /**
@@ -38,23 +38,31 @@ class UserController {
      */
     @GetMapping("/index")
     fun index(@RequestParam(required = false) keywords:String?,
-              @RequestParam(required = false)limitStatus: AccountLimitStatus?,
-              @RequestParam(required = false)roleId:AccountUserType?,
-              @RequestParam(required = false)sex:AccountUserSex?,
-              @RequestParam(required = false,defaultValue = "1")page:Long,
+              @RequestParam(required = false) limitStatus: AccountLimitStatus?,
+              @RequestParam(required = false) roleId:Int?,
+              @RequestParam(required = false) type: AccountUserType,
+              @RequestParam(required = false,defaultValue = "1") page:Long,
               @RequestParam(required = false,defaultValue = "10")size:Long
-    ): ResponsePageResult<AccountUserResult> = service.index(keywords,limitStatus,roleId,sex,page,size)
+    ): ResponsePageResult<AccountUserResult> = service.index(keywords,limitStatus,type,roleId,page,size)
 
     /**
-     * 分页查询授权信息
+     * 查询授权信息
      * @Author: ChenRang
      * @Date: 2019/11/18 15:08
      */
     @GetMapping("/grants")
     fun grant(@RequestParam(required = false)grants:String,
-              @RequestParam(required = false,defaultValue = "1")page:Long,
-              @RequestParam(required = false,defaultValue = "10")size:Long
-    ):ResponsePageResult<AccountUserResult> = service.grant(grants,page,size)
+              @RequestParam(required = false)storeId:Long?,
+              @RequestParam(required = false)marketId:Long?
+    ):List<AccountUserResult> = service.grant(grants,storeId,marketId)
+
+    /**
+     * 新增时封装表单数据
+     * @Author: ChenRang
+     * @Date: 2019/11/21 10:10
+     */
+    @GetMapping("/create")
+    fun create(type: AccountUserType):AccountUserQuery=service.create(type)
 
     /**
      * 根据id查询用户信息

@@ -33,9 +33,10 @@ class StoreController {
     fun index(@RequestParam(required = false)keywords: String?,
               @RequestParam(required = false)limitStatus: AccountLimitStatus?,
               @RequestParam(required = false)marketId:String?,
-              @RequestParam(required = false,defaultValue = "1")page:Long,
-              @RequestParam(required = false,defaultValue = "10")size:Long
-    ): ResponsePageResult<AccountStoreResult> = service.index(keywords,limitStatus,marketId,page,size)
+              @RequestParam(required = false)categoryId:Long?,
+              @RequestParam(required = false,defaultValue = "1") page:Long,
+              @RequestParam(required = false,defaultValue = "10") size:Long
+    ): ResponsePageResult<AccountStoreResult> = service.index(keywords,limitStatus,marketId,categoryId,page,size)
 
     /**
      * 查询授权信息
@@ -60,7 +61,8 @@ class StoreController {
      * @Date: 2019/11/17 19:57
      */
     @PostMapping
-    fun store(@RequestBody vo:StoreVO):AccountStoreResult=service.store(vo)
+    fun store(@RequestBody vo:StoreVO):AccountStoreResult = service.store(vo)
+
 
     /**
      * 根据id查询店铺信息

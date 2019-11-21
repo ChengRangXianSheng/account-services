@@ -19,4 +19,7 @@ class MybatisPlusConfig {
      */
     @Bean
     fun paginationInterceptor():PaginationInterceptor= PaginationInterceptor()
+
+
+
 }

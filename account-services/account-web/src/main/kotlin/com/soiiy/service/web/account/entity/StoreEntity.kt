@@ -16,5 +16,5 @@ import com.soiiy.service.share.account.result.AccountStoreResult
 class StoreEntity:ShareResponse<AccountStoreResult>,AccountStoreModel(){
 
     @TableId(type = IdType.AUTO)
-    override var id:Long=0
+    override var id:Long = 0
 }

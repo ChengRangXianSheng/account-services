@@ -3,6 +3,7 @@ package com.soiiy.service.web.account.http
 import com.soiiy.service.share.account.constant.AccountGrantType
 import com.soiiy.service.share.account.query.AccountGrantQuery
 import com.soiiy.service.share.account.result.AccountGrantResult
+import com.soiiy.service.share.account.result.AccountTreeResult
 import com.soiiy.service.web.account.service.GrantService
 import com.soiiy.service.web.account.vo.GrantVO
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*
  *@Date  2019/11/19 9:27
  */
 @RestController
+@RequestMapping("/grants")
 class GrantController {
 
     @Autowired
@@ -24,7 +26,7 @@ class GrantController {
      * @Author: ChenRang
      * @Date: 2019/11/19 9:28
      */
-    @GetMapping
+    @GetMapping("/query")
     fun query(type:AccountGrantType):AccountGrantQuery = service.query(type)
 
     /**
@@ -50,4 +52,14 @@ class GrantController {
      */
     @GetMapping("/{userId}")
     fun show(userId:String):List<AccountGrantResult> = service.show(userId)
+
+    /**
+     * 加载授权的店铺树
+     * @Author: ChenRang
+     * @Date: 2019/11/21 9:53
+     */
+    @GetMapping("/tree")
+    fun tree(@RequestParam(required = false)markets:String?,
+             @RequestParam(required = false)stores:String?
+    ):List<AccountTreeResult> = service.tree(markets,stores)
 }
