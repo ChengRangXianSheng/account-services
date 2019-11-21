@@ -1,10 +1,8 @@
 package com.soiiy.service.share.account.model
 
-import com.baomidou.mybatisplus.annotation.TableField
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.soiiy.service.share.account.constant.AccountLimitStatus
 import org.springframework.format.annotation.DateTimeFormat
-import java.time.LocalDateTime
 import java.util.*
 
 /**
