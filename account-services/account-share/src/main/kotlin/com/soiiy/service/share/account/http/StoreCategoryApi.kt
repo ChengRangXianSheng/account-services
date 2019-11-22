@@ -23,7 +23,7 @@ interface StoreCategoryApi {
     fun index():List<StoreCategoryResult>
 
     @PostMapping
-    fun store(dto:StoreCategoryDTO):StoreCategoryResult
+    fun store(@RequestBody dto:StoreCategoryDTO):StoreCategoryResult
 
     @GetMapping("/{id}")
     fun show(@PathVariable("id")id:Long):StoreCategoryResult

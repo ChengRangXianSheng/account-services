@@ -1,17 +1,16 @@
 package com.soiiy.service.web.account.controller
 
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
 
 /**
  *
  * @Author ChenRang
  * @Date  2019/11/21 10:34
  */
-@RestController
-@RequestMapping("/test")
+@Controller
 class TestController {
 
-    @RequestMapping("/aa")
-    fun test():String="AAAA"
+    @GetMapping("/aa")
+    fun test():String="index"
 }

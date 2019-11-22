@@ -37,7 +37,7 @@ interface AccountMarketApi {
     fun edit(@PathVariable("id")id:Long):AccountMarketQuery
 
     @PutMapping("/{id}")
-    fun update(@PathVariable("id")id:Long,dto:AccountMarketDTO):AccountMarketResult
+    fun update(@PathVariable("id")id:Long,@RequestBody dto:AccountMarketDTO):AccountMarketResult
 
     @DeleteMapping("/{id}")
     fun destroy(@PathVariable("id")id:Long):Boolean

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 /**
- *mybatisplus配置类
+ *MybatisPlus配置类
  *@Author ChenRang
  *@Date  2019/11/16 20:12
  */

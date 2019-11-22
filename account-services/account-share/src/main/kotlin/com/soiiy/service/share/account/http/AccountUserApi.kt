@@ -31,12 +31,12 @@ interface AccountUserApi {
               @RequestParam(required = false,defaultValue = "10")size:Long):ResponsePageResult<AccountUserResult>
 
     @GetMapping("/grant")
-    fun grant(grants:String,
-              markets:Long?,
-              stores:Long?):List<AccountUserResult>
+    fun grant(@RequestParam(required = false) grants:String,
+              @RequestParam(required = false) markets:Long?,
+              @RequestParam(required = false) stores:Long?):List<AccountUserResult>
 
     @PostMapping
-    fun store(dto:AccountUserDTO):AccountUserResult
+    fun store(@RequestBody dto:AccountUserDTO):AccountUserResult
 
     @GetMapping("/{id}")
     fun show(@PathVariable("id")id:Long):AccountUserResult
@@ -45,7 +45,7 @@ interface AccountUserApi {
     fun edit(@PathVariable("id")id:Long):AccountUserQuery
 
     @PutMapping("/{id}")
-    fun update(@PathVariable("id")id:Long,dto:AccountUserDTO):AccountUserResult
+    fun update(@PathVariable("id")id:Long,@RequestBody dto:AccountUserDTO):AccountUserResult
 
     @DeleteMapping("/{id}")
     fun destroy(@PathVariable("id")id:Long):Boolean

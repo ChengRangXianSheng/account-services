@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component
  * @Date  2019/11/21 18:40
  */
 
-@Component
-@ConfigurationProperties(prefix = "jwt")
-class JwtConfig {
-
-    var REDIS_TOKEN_KEY_PREFIX:String="TOKEN_"
-
-    var time:Long?=null
-
-    var secret:String?=null
-
-    var prefix:String?=null
-
-    var header:String?=null
-}
+//@Component
+//@ConfigurationProperties(prefix = "jwt")
+//class JwtConfig {
+//
+//    var REDIS_TOKEN_KEY_PREFIX:String="TOKEN_"
+//
+//    var time:Long?=null
+//
+//    var secret:String?=null
+//
+//    var prefix:String?=null
+//
+//    var header:String?=null
+//}

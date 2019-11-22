@@ -1,6 +1,5 @@
 package com.soiiy.service.share.account.http
 
-import com.soiiy.service.share.account.constant.AccountGrantType
 import com.soiiy.service.share.account.dto.AccountGrantDTO
 import com.soiiy.service.share.account.query.AccountGrantQuery
 import com.soiiy.service.share.account.result.AccountGrantResult
