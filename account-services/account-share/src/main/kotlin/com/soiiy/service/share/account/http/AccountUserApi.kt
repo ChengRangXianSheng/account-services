@@ -28,7 +28,7 @@ interface AccountUserApi {
               @RequestParam(required = false)roleId:Int?,
               @RequestParam(required = false)type: AccountUserType,
               @RequestParam(required = false,defaultValue = "1")page:Long,
-              @RequestParam(required = false,defaultValue = "10")size:Long):ResponsePageResult<AccountUserResult>
+              @RequestParam(required = false,defaultValue = "10")size:Long): ResponsePageResult<AccountUserResult>
 
     @GetMapping("/grant")
     fun grant(@RequestParam(required = false) grants:String,

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品分类</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <link  th:href="@{/images/favicon.ico}"  rel="shortcut icon">
+    <link  th:href="@{/css/vendor/jquery-jvectormap-1.2.2.css}"  rel="stylesheet" type="text/css" />
+    <link  th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css" />
+    <link  th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="content-page">
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <br>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">首页</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">账户管理</a></li>
+                                <li class="breadcrumb-item active">商品分类</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">商品分类</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="form-row">
+
+                                <div class="col-auto col-2">
+                                    <label class="sr-only" for="inlineFormInput">Name</label>
+                                    <input type="text" class="  form-control mb-2" id="inlineFormInput" placeholder="请输入商品分类名">
+                                </div>
+
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-primary">查询</button>
+                                </div>
+
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-success">新增</button>
+                                </div>
+
+                            </div>
+
+                            <div class="table-responsive-sm">
+                                <table class="table table-centered mb-0" id="tableData">
+                                    <thead>
+                                    <tr>
+                                        <th>商品分类名称</th>
+                                        <th>建议扣点比例</th>
+                                        <th>创建日期</th>
+                                        <th>是否启用</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>水果</td>
+                                        <td>2.5</td>
+                                        <td>2019-11-22 17:44</td>
+                                        <td>
+                                            <div>
+                                                <input type="checkbox" id="switch1" checked data-switch="success"/>
+                                                <label for="switch1" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="button-list">
+                                                <button type="button" class="btn btn-primary btn-rounded">编辑</button>
+                                                <button type="button" class="btn btn-danger btn-rounded">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>熟食</td>
+                                        <td>2.5</td>
+                                        <td>2019-11-22 17:44</td>
+                                        <td>
+                                            <div>
+                                                <input type="checkbox" id="switch2" checked data-switch="success"/>
+                                                <label for="switch2" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="button-list">
+                                                <button type="button" class="btn btn-primary btn-rounded">编辑</button>
+                                                <button type="button" class="btn btn-danger btn-rounded">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>火锅</td>
+                                        <td>2.5</td>
+                                        <td>2019-11-22 17:44</td>
+                                        <td>
+                                            <div>
+                                                <input type="checkbox" id="switch3" data-switch="success"/>
+                                                <label for="switch3" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="button-list">
+                                                <button type="button" class="btn btn-primary btn-rounded">编辑</button>
+                                                <button type="button" class="btn btn-danger btn-rounded">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>自助餐</td>
+                                        <td>2.5</td>
+                                        <td>2019-11-22 17:44</td>
+                                        <td>
+                                            <div>
+                                                <input type="checkbox" id="switch4" data-switch="success"/>
+                                                <label for="switch4" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="button-list">
+                                                <button type="button" class="btn btn-primary btn-rounded">编辑</button>
+                                                <button type="button" class="btn btn-danger btn-rounded">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="spiritPagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <script  th:src="@{/js/app.min.js}"></script>
+    <script  th:src="@{https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min.js}"></script>
+    <script  th:src="@{/js/vendor/jquery-jvectormap-1.2.2.min.js}"></script>
+    <script  th:src="@{/js/vendor/jquery-jvectormap-world-mill-en.js}"></script>
+    <script  th:src="@{/js/pages/demo.dashboard.js}"></script>
+    <script>
+        $(document).ready(function () {
+
+        })
+    </script>
+</html>

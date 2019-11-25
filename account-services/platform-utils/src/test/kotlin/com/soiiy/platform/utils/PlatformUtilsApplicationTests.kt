@@ -1,10 +1,10 @@
-package com.soiiy.service.share.account
+package com.soiiy.platform.utils
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class AccountShareApplicationTests {
+class PlatformUtilsApplicationTests {
 
     @Test
     fun contextLoads() {

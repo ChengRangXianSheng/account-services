@@ -13,4 +13,10 @@ class TestController {
 
     @GetMapping("/aa")
     fun test():String="index"
+
+    @GetMapping("/A")
+    fun A():String="A"
+
+    @GetMapping("/B")
+    fun B():String="B"
 }
