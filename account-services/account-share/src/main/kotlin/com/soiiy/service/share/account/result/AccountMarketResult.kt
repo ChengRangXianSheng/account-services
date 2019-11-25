@@ -17,29 +17,17 @@ class AccountMarketResult {
 
     var name:String?=null
 
-    var picUrl:String?=null
-
-    var picAlbums:List<String>?=null
-
-    var address:String?=null
-
-    var telephone:String?=null
-
-    var description:String?=null
-
-    var longitude:BigDecimal?=null
-
-    var latitude:BigDecimal?=null
-
-    @JsonSerialize(using = DecimalJsonType.CoinSerializer::class)
-    @JsonDeserialize(using = DecimalJsonType.CoinDeserializer::class)
-    var portionFee:Number?=null
-
     var companyName:String?=null
 
     var companyCode:String?=null
 
-    var companyLicUrl:String?=null
+    var limtiStatus:AccountLimitStatus?=null
+
+    var telephone:String?=null
+
+    @JsonSerialize(using = DecimalJsonType.CoinSerializer::class)
+    @JsonDeserialize(using = DecimalJsonType.CoinDeserializer::class)
+    var portionFee:Number?=null
 
     var bankName:String?=null
 
@@ -47,5 +35,20 @@ class AccountMarketResult {
 
     var bankAddress:String?=null
 
-    var limtiStatus:AccountLimitStatus?=null
+    var longitude:BigDecimal?=null
+
+    var latitude:BigDecimal?=null
+
+    var address:String?=null
+
+    var description:String?=null
+
+    var picUrl:String?=null
+
+    var picAlbums:List<String>?=null
+
+    var companyLicUrl:String?=null
+
+
+
 }

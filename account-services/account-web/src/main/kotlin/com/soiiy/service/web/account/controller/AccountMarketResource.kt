@@ -4,15 +4,13 @@ import com.soiiy.platform.utils.result.ResponsePageResult
 import com.soiiy.service.share.account.constant.AccountLimitStatus
 import com.soiiy.service.share.account.result.AccountMarketResult
 import com.soiiy.service.web.account.service.MarketService
+import com.soiiy.service.web.account.vo.MarketVO
 import org.apache.commons.logging.LogFactory
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 
 /**
  * 账户网点后台接口
@@ -49,5 +47,32 @@ class AccountMarketResource {
               @RequestParam(required = false,defaultValue = "1")page:Long,
               @RequestParam(required = false,defaultValue = "10")size:Long
     ):ResponsePageResult<AccountMarketResult> = service.index(keywords,limitStatus,page,size)
+
+    /**
+     * 删除网点信息
+     * @Author: ChenRang
+     * @Date: 2019/11/25 17:16
+     */
+    @RequestMapping("/delete")
+    @ResponseBody
+    fun delete(id:String):Boolean=service.destroy(id.toLong())
+
+    /**
+     * 根据id查询信息
+     * @Author: ChenRang
+     * @Date: 2019/11/25 17:30
+     */
+    @RequestMapping("/show")
+    @ResponseBody
+    fun show(id:String):AccountMarketResult=service.show(id.toLong())
+
+    /**
+     * 添加网点信息
+     * @Author: ChenRang
+     * @Date: 2019/11/25 19:02
+     */
+    @RequestMapping("/store")
+    @ResponseBody
+    fun store(dto:MarketVO):AccountMarketResult=service.store(dto)
 
 }

@@ -72,9 +72,9 @@
     <distributionManagement>
         <repository>
             <!--必须与 settings.xml 的 id 一致-->
-            <id>wanmao-platform-projects-denpendencies</id>
-            <name>denpendencies</name>
-            <url>https://wanmao-maven.pkg.coding.net/repository/platform-projects/denpendencies/</url>
+            <id>wanmao-spring-boot-pkgs-main</id>
+            <name>main</name>
+            <url>https://wanmao-maven.pkg.coding.net/repository/spring-boot-pkgs/main/</url>
         </repository>
     </distributionManagement>
 

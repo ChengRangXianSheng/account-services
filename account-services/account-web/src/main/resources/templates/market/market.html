@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>账户网点页面</title>
+    <title>网点管理页面</title>
     <meta charset="UTF-8">
-    <title>商品分类</title>
+    <title>网点管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -14,9 +14,14 @@
     <link  th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css" />
     <link  th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     <link  th:href="@{/css/pagination.css}" rel="stylesheet" type="text/css" />
+    <link  th:href="@{/css/layui.css}" rel="stylesheet" type="text/css" />
+    <link  th:href="@{/css/modules/layer/default/layer.css}" rel="stylesheet" type="text/css" />
+
 </head>
 <body style="overflow-y: hidden">
 <div class="container-fluid">
+    <!-- 遮罩层 -->
+    <div id="subMask"></div>
     <div class="content-page" style="margin-left:-50px;position: absolute;overflow-y: hidden">
         <div class="content">
             <div class="row">
@@ -26,11 +31,11 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">首页</a></li>
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">账户管理</a></li>
-                                <li class="breadcrumb-item active">商品分类</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">网点管理</a></li>
+                                <li class="breadcrumb-item active">网点管理</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">商品分类</h4>
+                        <h4 class="page-title">网点管理</h4>
                     </div>
                 </div>
             </div>
@@ -41,13 +46,13 @@
                             <div class="form-row">
                                 <div class="col-auto col-2">
                                     <label class="sr-only" for="inlineFormInput">Name</label>
-                                    <input type="text" class="  form-control mb-2" id="inlineFormInput" placeholder="请输入商品分类名">
+                                    <input type="text" class="  form-control mb-2" id="keywords" placeholder="请输入网点名">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary">查询</button>
+                                    <button type="button" class="btn btn-primary" onclick="doSearch()" >查询</button>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-success">新增</button>
+                                    <button type="button" class="btn btn-success" onclick="openDialog()" data-toggle='modal' data-target='#myModal'>新增</button>
                                 </div>
 
                             </div>
@@ -63,19 +68,19 @@
                                         <th>操作</th>
                                     </tr>
                                     <tbody id="tableData">
-                                    <tr>
-                                        <td><img src="../../static/images/test.png" ></td>
-                                        <td>正常</td>
-                                        <td>环球中心</td>
-                                        <td>40%</td>
-                                        <td>成都市高新区锦城广场地铁站旁边</td>
-                                        <td>
-                                            <div class="button-list">
-                                                <button type="button" class="btn btn-primary btn-rounded">编辑</button>
-                                                <button type="button" class="btn btn-danger btn-rounded">删除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td><img src="../../static/images/test.png" ></td>
+                                            <td>正常</td>
+                                            <td>环球中心</td>
+                                            <td>40%</td>
+                                            <td>成都市高新区锦城广场地铁站旁边</td>
+                                            <td>
+                                                <div class="button-list">
+                                                    <button type="button" class="btn btn-primary btn-rounded">编辑</button>
+                                                    <button type="button" class="btn btn-danger btn-rounded">删除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -90,6 +95,107 @@
             <div class="M-box3" style="width:200px;height:30px;margin-left:80%;position: absolute;overflow-y: hidden;margin-top: 11px"></div>
         </div>
     </div>
+    <!-- 新增、修改模态框（Modal） -->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">编辑网点信息</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="dataForm" class="form-horizontal">
+
+                        <div class="form-group row mb-3">
+                            <div style="display: none"><label>序号：</label><input type="text" name="id"/></div>
+                            <label class="col-2 col-form-label" style="text-align: right">名称</label>
+                            <div class="col-6">
+                                <input  class="form-control" name="name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label  class="col-2 col-form-label" style="text-align: right">公司名称</label>
+                            <div class="col-6">
+                                <input  class="form-control" name="companyName">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label  class="col-2 col-form-label" style="text-align: right">统一税号</label>
+                            <div class="col-6">
+                                <input  class="form-control" name="companyCode">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label  class="col-2 col-form-label" style="text-align: right">经营状态</label>
+                            <div class="col-2">
+                                <select class="custom-select" name="limtiStatus">
+                                    <option value="0" name="limtiStatus">正常</option>
+                                    <option value="1" name="limtiStatus">关闭</option>
+                                </select>
+                            </div>
+                            <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">联系电话</label>
+                            <div class="col-3">
+                                <input  class="form-control" name="telephone">
+                            </div>
+                            <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">分账比例</label>
+                            <div class="col-2">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" name="portionFee">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label  class="col-2 col-form-label" style="text-align: right">开户名称</label>
+                            <div class="col-2">
+                                <input  class="form-control" name="bankName">
+                            </div>
+                            <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">银行卡号</label>
+                            <div class="col-3">
+                                <input  class="form-control" name="bankCode">
+                            </div>
+                            <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">开户行</label>
+                            <div class="col-2">
+                                <input  class="form-control" name="bankAddress" style="width: 120px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label  class="col-2 col-form-label" style="text-align: right">纬度</label>
+                            <div class="col-2">
+                                <input  class="form-control" name="longitude">
+                            </div>
+                            <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">经度</label>
+                            <div class="col-2">
+                                <input  class="form-control" name="latitude">
+                            </div>
+                            <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">详细地址</label>
+                            <div class="col-3">
+                                <input  class="form-control" name="address"   style="width: 190px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
+                            <label  class="col-2 col-form-label" style="text-align: right">卖场简介</label>
+                            <div class="col-10">
+                                <textarea class="form-control" rows="3" name="description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="doSubmit()" id="submitBtn">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-
 </div>
 </body>
     <script  th:src="@{/js/jquery-3.2.1.min.js}"></script>
@@ -100,52 +206,64 @@
     <script  th:src="@{/js/pages/demo.dashboard.js}"></script>
     <script  th:src="@{/js/bootstrap.min.js}"></script>
     <script  th:src="@{/js/jquery.pagination.js}"></script>
+    <script  th:src="@{/lay/modules/layer.js}"></script>
     <script>
-        var pageNumber=1;
-        var keywords=null;
-        var totalPage = 1;//总共多少页
-        var totalRecords = 1;//总共多少页
-        var pageSize=10;//每页显示多少条
-        $(document).ready(function () {
-            loadList();
-            //回调函数
-            PageClick = function(index){
-                $('.now').text(index.getCurrent());
-                loadList(index.getCurrent());//点击分页加载列表数据  */
-            }
 
+        var pageNumber=1;    //当前页
+        var totalPage = 1;   //总共多少页
+        var totalRecords = 1;//总共多少页
+        var pageSize=10;     //每页显示多少条
+
+        $(document).ready(function () {
+            loadList(pageNumber);
+        })
+
+        //回调函数
+        function PageClick(index) {
+            $('.now').text(index.getCurrent());
+            pageNumber=index.getCurrent();
+            loadList(pageNumber);
+        }
+        //加载数据列表
         function loadList(pageNumber) {
+            var keywords=$("#keywords").val()
             $.ajax({
-                type:"get",
+                type: "get",
                 url: '/marketResource/index',
                 dataType: "json",
-                data: { 'page': pageNumber,'size': pageSize,"keywords":keywords},
-                success:function(result) {
+                data: {'page': pageNumber, 'size': pageSize, "keywords": keywords},
+                success: function (result) {
+
                     var count = result.total;
                     var data = result.data;
                     totalRecords = count;
                     totalPage = Math.ceil(count / pageSize);
-                    var tableData="";
-                    $.each(data, function(i, item) {
-                        tableData+='<tr height="+50px+">'+
-                            '<td>'+""+'</td>'+
-                            '<td>'+"正常"+'</td>'+
-                            '<td>'+item.name+'</td>'+
-                            '<td>'+item.portionFee+'</td>'+
-                            '<td>'+item.bankName+'</td>'+
-                            '<td>'+" <div class=\"button-list\">\n" +
-                            "        <button type=\"button\" class=\"btn btn-primary btn-rounded\">编辑</button>\n" +
-                            "        <button type=\"button\" class=\"btn btn-danger btn-rounded\">删除</button>\n" +
-                            " </div>"+'</td>'+
+
+                    var tableData = "";
+                    var storeStatus="正常"
+                    $.each(data, function (i, item) {
+
+                        tableData += '<tr>' +
+                            '<td style="display:none">'+item.id+'</td>'+
+                            '<td>' +  + '</td>' +
+                            '<td>' + storeStatus + '</td>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.portionFee + '</td>' +
+                            '<td>' + item.bankName + '</td>' +
+                            '<td>' +
+                            "<button type=\"button\" class=\"btn btn-primary btn-rounded\" onclick=\"getIdSelections(this)\" data-toggle=\"modal\" data-target=\"#myModal\">编辑</button>\n" +
+                            "<button type=\"button\" class=\"btn btn-danger btn-rounded\"  onclick=\"doDelete(this)\">删除</button>\n" +
+                             '</td>' +
                             '</tr>';
                     });
                     $("#tableData").html(tableData);
+
                     $('.total').text(totalPage);
                     $('.count').text(count);
                     $('.M-box3').pagination({
                         pageCount: totalPage,	//总页数
-                        current:pageNumber,			//当前第几页
-                        //jump: true,				//跳转功能
+                        current: pageNumber,	//当前第几页
+                        //jump: true,			//跳转功能
                         //coping: true,			//是否开启首页末页
                         //keepShowPN:true,		//是否总显示上页下页
                         mode: 'fixed',			//固定数量
@@ -154,11 +272,112 @@
                         //endPage: '末页',
                         //prevContent: '上页',
                         //nextContent: '下页',
-                        callback:PageClick
+                        callback: PageClick
                     });
                 },
             });
         }
-        })
+        //通过id查询
+        function getIdSelections(id) {
+            var id = $(id).parent().parent().find("td").eq(0).text();
+
+            $.ajax({
+                url:'/marketResource/show',
+                type:"post",
+                dataType: "json",
+                data: {'id':id},
+                success: function (data) {
+                    if(data != null || data !="undefined"){
+                        $('#dataForm').find('[name]').each(function() {
+                            var type = $(this)[0].nodeName.toLowerCase();
+                            var name = $(this).attr('name');
+                            console.log(type+"[name='"+name+"']")
+                            $(type+"[name='"+name+"']").val(data[''+name+'']);
+                        });
+                    }
+                }
+            })
+
+            //更换确定按钮的点击事件
+            $("#submitBtn").removeAttr("onclick");
+            $("#submitBtn").attr("onclick","doSubmit();");
+            $("#myModalLabel").text("编辑网点信息");
+        }
+
+        //打开添加弹框
+        function openDialog() {
+            //清空input文本框
+            $('#dataForm').find('[name]').each(function() {
+                var type = $(this)[0].nodeName.toLowerCase();
+                var name = $(this).attr('name');
+                $(type+"[name='"+name+"']").val("");
+            });
+            //更换确定按钮的点击事件
+            $("#submitBtn").removeAttr("onclick");
+            $("#submitBtn").attr("onclick","doAdd();");
+            $("#myModalLabel").text("添加网点信息");
+
+        }
+
+        //提交方法
+        function doSubmit() {
+
+        }
+        //按条件查询查询网点
+        function doSearch() {
+            loadList(pageNumber)
+        }
+        //编辑列表数据
+        function doUpdate(id) {
+            var id = $(id).parent().parent().find("td").eq(0).text();
+        }
+        //删除列表数据
+        function doDelete(id) {
+            var id = $(id).parent().parent().find("td").eq(0).text();
+
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    url:'/marketResource/delete',
+                    type: "post",
+                    dataType: "text",
+                    data: {"id":id},
+                    success: function (data) {
+                        if(data=="true"){
+                            layer.msg("删除成功",{time:1000},function (){
+                                loadList(pageNumber);
+                            });
+                        }else{
+                            layer.msg('<p style="color:#f7c247">'+"删除失败"+'</p>',{time:2000},function (){
+                                loadList(pageNumber);
+                            });
+                        }
+
+                    }
+                })
+            });
+
+        }
+        //新增网点信息
+        function doAdd() {
+            var carInformation = $("#dataForm").serialize();
+            $.ajax({
+                url:'/marketResource/store',
+                type: "post",
+                dataType: "json",
+                data: carInformation,
+                success: function (data) {
+                    if(data != null && data != "undefined"){
+                        layer.msg("添加成功",{time:1000},function (){
+                            $("#myModal").modal('hide');
+                            loadList(pageNumber);
+                        });
+                    }else{
+                        layer.msg('<p style="color:#f7c247">'+"发生未知异常"+'</p>',{time:2000},function (){
+                            loadList(pageNumber);
+                        });
+                    }
+                }
+            })
+        }
     </script>
 </html>
