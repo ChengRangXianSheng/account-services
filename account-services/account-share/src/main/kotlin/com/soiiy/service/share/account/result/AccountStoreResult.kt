@@ -16,21 +16,11 @@ class AccountStoreResult {
 
     var name:String?=null
 
-    var marketId:String?=null
-
     var marketName:String?=null
-
-    var marketCode:String?=null
-
-    var categoryId:String?=null
 
     var categoryName:String?=null
 
-    var categoryPortionFee:Int?=null
-
-    var picUrl:String?=null
-
-    var picAlbums:List<String>?=null
+    var marketCode:String?=null
 
     @JsonSerialize(using = DecimalJsonType.CoinSerializer::class)
     @JsonDeserialize(using = DecimalJsonType.CoinDeserializer::class)
@@ -40,9 +30,29 @@ class AccountStoreResult {
 
     var contactMobile:String?=null
 
+    var limitStatus:AccountLimitStatus?=null
+
     var telephone:String?=null
 
     var description:String?=null
 
-    var limitStatus:AccountLimitStatus?=null
+    var marketId:String?=null
+
+    var categoryId:String?=null
+
+    var categoryPortionFee:Int?=null
+
+    var picUrl:String?=null
+
+    var picAlbums:List<String>?=null
+
+
+
+
+
+
+
+
+
+
 }

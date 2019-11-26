@@ -125,22 +125,22 @@
                                     <a href="javascript: void(0);" id="accountMsg">账户信息</a>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);" id="accountUser">管理员</a>
+                                    <a href="javascript: void(0);" id="accountAdmin">账户管理员</a>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);">网点账户</a>
+                                    <a href="javascript: void(0);" id="accountMarketUser">网点账户</a>
                                 </li>
                                 <li>
                                     <a href="javascript: void(0);" id="accountMarket">网点管理</a>
                                 </li>
-                                <li>
-                                    <a href="javascript: void(0);" id="accountStore">商户管理</a>
-                                </li>
+                                <!--<li>-->
+                                    <!--<a href="javascript: void(0);" >商户管理</a>-->
+                                <!--</li>-->
                                 <li>
                                     <a href="javascript: void(0);" id="storeCategory">店铺分类</a>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);">店铺管理</a>
+                                    <a href="javascript: void(0);" id="accountStore">店铺管理</a>
                                 </li>
                             </ul>
                         </li>
@@ -214,7 +214,16 @@
                     $("#page").attr("src","/categoryResource/index")
                 })
                 $("#accountMarket").click(function () {
-                    $("#page").attr("src","/marketResource/index")
+                    $("#page").attr("src","/marketResource/query")
+                })
+                $("#accountStore").click(function () {
+                    $("#page").attr("src","/storeResource/query")
+                })
+                $("#accountAdmin").click(function () {
+                    $("#page").attr("src","/userResource/query?type=1")
+                })
+                $("#accountMarketUser").click(function () {
+                    $("#page").attr("src","/userResource/query?type=2")
                 })
             })
         </script>

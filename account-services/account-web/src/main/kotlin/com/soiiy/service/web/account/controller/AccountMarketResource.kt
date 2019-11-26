@@ -58,6 +58,14 @@ class AccountMarketResource {
     fun delete(id:String):Boolean=service.destroy(id.toLong())
 
     /**
+     * 修改网点信息
+     * @Author: ChenRang
+     * @Date: 2019/11/26 10:39
+     */
+    @RequestMapping("/update")
+    @ResponseBody
+    fun update(id:String,dto:MarketVO):AccountMarketResult = service.update(id.toLong(),dto)
+    /**
      * 根据id查询信息
      * @Author: ChenRang
      * @Date: 2019/11/25 17:30

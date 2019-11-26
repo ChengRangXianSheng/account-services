@@ -11,9 +11,17 @@ import com.soiiy.service.share.account.constant.AccountUserType
  */
 class AccountUserResult {
 
-    var id:Long?=null
+    var id:String?=null
 
     var name:String?=null
+
+    var sex:AccountUserSex?=null
+
+    var roleName:String?=null
+
+    var mobile:String?=null
+
+    var limitStatus:AccountLimitStatus?=null
 
     var username:String?=null
 
@@ -21,21 +29,13 @@ class AccountUserResult {
 
     var roleId:Int?=null
 
-    var roleName:String?=null
-
     var roleLabel: String? = null
 
     var type:AccountUserType?=null
 
     var avatarUrl:String?=null
 
-    var sex:AccountUserSex?=null
-
-    var mobile:String?=null
-
     var grant:String?=null
-
-    var limitStatus:AccountLimitStatus?=null
 
     var permission:List<String>?=null
 }

@@ -14,9 +14,8 @@
     <link  th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css" />
     <link  th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     <link  th:href="@{/css/pagination.css}" rel="stylesheet" type="text/css" />
-    <link  th:href="@{/css/layui.css}" rel="stylesheet" type="text/css" />
-    <link  th:href="@{/css/modules/layer/default/layer.css}" rel="stylesheet" type="text/css" />
-
+    <link  th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css" />
+    <link  th:href="@{/layui/css/modules/layer/default/layer.css}" rel="stylesheet" type="text/css" />
 </head>
 <body style="overflow-y: hidden">
 <div class="container-fluid">
@@ -104,41 +103,41 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form id="dataForm" class="form-horizontal">
+                    <form id="dataForm" class="layui-form">
 
                         <div class="form-group row mb-3">
                             <div style="display: none"><label>序号：</label><input type="text" name="id"/></div>
                             <label class="col-2 col-form-label" style="text-align: right">名称</label>
                             <div class="col-6">
-                                <input  class="form-control" name="name">
+                                <input  class="layui-input" name="name">
                             </div>
                         </div>
 
                         <div class="form-group row mb-3">
                             <label  class="col-2 col-form-label" style="text-align: right">公司名称</label>
                             <div class="col-6">
-                                <input  class="form-control" name="companyName">
+                                <input  class="layui-input" name="companyName">
                             </div>
                         </div>
 
                         <div class="form-group row mb-3">
                             <label  class="col-2 col-form-label" style="text-align: right">统一税号</label>
                             <div class="col-6">
-                                <input  class="form-control" name="companyCode">
+                                <input  class="layui-input" name="companyCode">
                             </div>
                         </div>
 
                         <div class="form-group row mb-3">
                             <label  class="col-2 col-form-label" style="text-align: right">经营状态</label>
-                            <div class="col-2">
-                                <select class="custom-select" name="limtiStatus">
+                            <div class="col-2 ">
+                                <select class="layui-input-inline" name="limtiStatus">
                                     <option value="0" name="limtiStatus">正常</option>
                                     <option value="1" name="limtiStatus">关闭</option>
                                 </select>
                             </div>
                             <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">联系电话</label>
                             <div class="col-3">
-                                <input  class="form-control" name="telephone">
+                                <input  class="layui-input" name="telephone">
                             </div>
                             <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">分账比例</label>
                             <div class="col-2">
@@ -154,37 +153,37 @@
                         <div class="form-group row mb-3">
                             <label  class="col-2 col-form-label" style="text-align: right">开户名称</label>
                             <div class="col-2">
-                                <input  class="form-control" name="bankName">
+                                <input  class="layui-input" name="bankName">
                             </div>
                             <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">银行卡号</label>
                             <div class="col-3">
-                                <input  class="form-control" name="bankCode">
+                                <input  class="layui-input" name="bankCode">
                             </div>
                             <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">开户行</label>
                             <div class="col-2">
-                                <input  class="form-control" name="bankAddress" style="width: 120px;">
+                                <input  class="layui-input" name="bankAddress" style="width: 120px;">
                             </div>
                         </div>
 
                         <div class="form-group row mb-3">
                             <label  class="col-2 col-form-label" style="text-align: right">纬度</label>
                             <div class="col-2">
-                                <input  class="form-control" name="longitude">
+                                <input  class="layui-input" name="longitude">
                             </div>
                             <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">经度</label>
                             <div class="col-2">
-                                <input  class="form-control" name="latitude">
+                                <input  class="layui-input" name="latitude">
                             </div>
                             <label  class="col-2 col-form-label" style="text-align: right;margin-left: -50px">详细地址</label>
                             <div class="col-3">
-                                <input  class="form-control" name="address"   style="width: 190px;">
+                                <input  class="layui-input" name="address"   style="width: 190px;">
                             </div>
                         </div>
 
                         <div class="form-group row mb-3">
                             <label  class="col-2 col-form-label" style="text-align: right">卖场简介</label>
                             <div class="col-10">
-                                <textarea class="form-control" rows="3" name="description"></textarea>
+                                <textarea class="layui-textarea" rows="3" name="description"></textarea>
                             </div>
                         </div>
                     </form>
@@ -206,8 +205,10 @@
     <script  th:src="@{/js/pages/demo.dashboard.js}"></script>
     <script  th:src="@{/js/bootstrap.min.js}"></script>
     <script  th:src="@{/js/jquery.pagination.js}"></script>
-    <script  th:src="@{/lay/modules/layer.js}"></script>
+    <script  th:src="@{/layui/layui.js}"></script>
+    <script  th:src="@{/layui/lay/modules/layer.js}"></script>
     <script>
+
 
         var pageNumber=1;    //当前页
         var totalPage = 1;   //总共多少页
@@ -215,15 +216,15 @@
         var pageSize=10;     //每页显示多少条
 
         $(document).ready(function () {
+
+            layui.use('form', function(){
+                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                form.render();
+            })
+
             loadList(pageNumber);
         })
 
-        //回调函数
-        function PageClick(index) {
-            $('.now').text(index.getCurrent());
-            pageNumber=index.getCurrent();
-            loadList(pageNumber);
-        }
         //加载数据列表
         function loadList(pageNumber) {
             var keywords=$("#keywords").val()
@@ -242,7 +243,6 @@
                     var tableData = "";
                     var storeStatus="正常"
                     $.each(data, function (i, item) {
-
                         tableData += '<tr>' +
                             '<td style="display:none">'+item.id+'</td>'+
                             '<td>' +  + '</td>' +
@@ -277,6 +277,14 @@
                 },
             });
         }
+
+        //回调函数
+        function PageClick(index) {
+            $('.now').text(index.getCurrent());
+            pageNumber=index.getCurrent();
+            loadList(pageNumber);
+        }
+
         //通过id查询
         function getIdSelections(id) {
             var id = $(id).parent().parent().find("td").eq(0).text();
@@ -321,7 +329,25 @@
 
         //提交方法
         function doSubmit() {
-
+            var marketInfo = $("#dataForm").serialize();
+            $.ajax({
+                url:'/marketResource/update',
+                type: "post",
+                dataType: "json",
+                data: marketInfo,
+                success: function (data) {
+                    if(data!=null && data != "undefined"){
+                        layer.msg("修改成功",{time:1000},function (){
+                            $("#myModal").modal('hide');
+                            loadList(pageNumber);
+                        });
+                    }else{
+                        layer.msg('<p style="color:#f7c247">'+"修改失败发生未知异常"+'</p>',{time:2000},function (){
+                            loadList(pageNumber);
+                        });
+                    }
+                }
+            })
         }
         //按条件查询查询网点
         function doSearch() {

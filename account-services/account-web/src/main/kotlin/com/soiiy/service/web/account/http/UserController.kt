@@ -29,7 +29,7 @@ class UserController {
      * @Date: 2019/11/18 14:55
      */
     @GetMapping("/query")
-    fun query(type:AccountUserType):AccountUserQuery=service.query(type)
+    fun query(type:Int):AccountUserQuery=service.query(type)
 
     /**
      * 分页条件查询用户
@@ -62,7 +62,7 @@ class UserController {
      * @Date: 2019/11/21 10:10
      */
     @GetMapping("/create")
-    fun create(type: AccountUserType):AccountUserQuery=service.create(type)
+    fun create(type: Int):AccountUserQuery=service.create(type)
 
     /**
      * 根据id查询用户信息

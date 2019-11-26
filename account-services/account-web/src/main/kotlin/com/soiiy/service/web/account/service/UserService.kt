@@ -35,9 +35,9 @@ class UserService{
     @Autowired
     lateinit var storeMapper: StoreMapper
 
-    fun query(type: AccountUserType):AccountUserQuery{
+    fun query(type: Int):AccountUserQuery{
         val query=AccountUserQuery()
-        query.formRoles=roleMapper.findAllByType(type.code).map { it.result() }
+        query.formRoles=roleMapper.findAllByType(type).map { it.result() }
         return query
     }
     /**
@@ -92,7 +92,7 @@ class UserService{
             return@map result(userEntity)
         }
     }
-    fun create(type: AccountUserType):AccountUserQuery=query(type)
+    fun create(type: Int):AccountUserQuery=query(type)
     /**
      * 通过手机号查询
      * @Author: ChenRang
@@ -128,7 +128,7 @@ class UserService{
      */
     fun edit(id:Long):AccountUserQuery{
         var user=show(id)
-        var query=query(AccountUserType.valueOf(user.type.toString()))
+        var query=query(1)
         query.formData=user
         return query
     }
